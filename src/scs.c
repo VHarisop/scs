@@ -1125,8 +1125,8 @@ scs_int scs_solve(ScsWork *w, ScsSolution *sol, ScsInfo *info,
     }
 
     /* Log *after* updating scale so residual recalc does not affect alg */
-    if (w->stgs->log_csv_filename) {
-      /* calc residuals every iter if logging to csv */
+    if (w->stgs->log_csv_filename && i % CONVERGED_INTERVAL == 0) {
+      /* calc residuals every CONVERGED_INTERVAL iters if logging to csv */
       populate_residual_struct(w, i);
       SCS(log_data_to_csv)(k, stgs, w, i, &solve_timer);
     }
